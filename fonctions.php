@@ -1,0 +1,4 @@
+<?php
+  // Définition des fonctions
+
+?>

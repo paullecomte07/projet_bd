@@ -1,0 +1,11 @@
+.conteneur{
+  text-align-last: center;
+}
+
+.conteneur-button{
+  display: flex;
+  justify-content: space-around;
+  padding-top: 16vh;
+}
+
+

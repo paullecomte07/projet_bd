@@ -12,6 +12,8 @@
 	<?php
   	// Importation et exécution du fichier
   	require('fonctions.php');
+
+    echo('<h1>hello world</h1>');
 	?>       
         
 		

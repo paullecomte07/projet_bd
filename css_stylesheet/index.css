@@ -1,0 +1,17 @@
+.conteneur{
+  text-align-last: center;
+}
+
+.conteneur-button{
+  display: flex;
+  justify-content: space-around;
+  padding-top: 16vh;
+}
+
+.requete{
+  width: 70px;
+  height: 70px;
+  background-color: orange;
+  border-radius: 13px;
+}
+

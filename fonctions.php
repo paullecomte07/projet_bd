@@ -10,7 +10,7 @@
   $req = mysqli_query($base,$sql);
   mysqli_select_db ($base,'bddplnvk') ;
 
-  creerTables();
+
   /*mysqli_select_db ($base,'voitures') ;
   $sql = "SELECT voitures.* FROM voitures where Nom=\"".$voiture."\"";
   $req = mysqli_query($base,$sql)
@@ -54,7 +54,7 @@
     NumMed INT(5) NOT NULL,
     NumPat INT(5) NOT NULL,
     DateAct VARCHAR(10) NOT NULL,
-    NumService INT(2) NOT NULL,
+    NumService INT(5) NOT NULL,
     Description VARCHAR(50) NOT NULL
   );';
 
@@ -68,16 +68,20 @@
       or die("Impossible de créer la table : ");
     
   }
+  return TRUE;
 }
 
 function ajouterElement () 
-{ 
+{
+  global $base;
 }
 
 function supprimerBDD () 
 {
+  global $base;
   $sql= "DROP DATABASE IF EXISTS bddplnvk";
   $req = mysqli_query($base,$sql);
+  return TRUE;
 }
 
 

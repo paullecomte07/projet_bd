@@ -1,7 +1,8 @@
 <?php
   // Définition des fonctions
   $base = mysqli_connect ('localhost', 'root', '')
-    or die("Impossible de se connecter : " . mysqli_error());
+    or mysqli_connect ('localhost', 'root', 'root')
+      or die("Impossible de se connecter : " . mysqli_error());
   
   $sql= "DROP DATABASE IF EXISTS bddplnvk";
   $req = mysqli_query($base,$sql);

@@ -23,38 +23,25 @@
 
   <?php
         if(array_key_exists('button1', $_POST)) {
-            if(creerTables()){
-              echo "les tables ont été crées";
-            }
+          if(creerTables()){
+            echo "les tables ont été crées";
+          }
         }
         else if(array_key_exists('button2', $_POST)) {
-            button2();
+          majTables();
         }
-        function button1() {
-            echo "This is Button1 that is selected";
-        }
-        function button2() {
+        else if(array_key_exists('button3', $_POST)) {
           if(supprimerBDD()){
             echo "les tables ont été supprimées";
           }
-
-          /*
-          $csvFile = file('Enregistrements/Patient.csv');
-          $data = [];
-          foreach ($csvFile as $line) {
-            echo($line);
-            echo("coucou");
-            $data[] = str_getcsv($line);
-          }
-          echo($data[2]);
-          */
         }
     ?>
 
   <div class="conteneur-button">
     <form method="post">
-        <input type="submit" name="button1" class="btn btn-primary m-2" value="Créer une nouvelle base" />
-        <input type="submit" name="button2" class="btn btn-danger m-2" value="Effacer la base de donnée" />
+        <input type="submit" name="button1" class="btn btn-primary m-1" value="Créer une nouvelle base" />
+        <input type="submit" name="button2" class="btn btn-primary m-2" value="Charger les enregistrements" />
+        <input type="submit" name="button3" class="btn btn-danger m-3" value="Effacer la base de donnée" />
     </form>
   </div>
 

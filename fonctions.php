@@ -90,8 +90,6 @@
 function majTables() 
 {
   global $base;
-  echo "Information d'hôte : " . mysqli_get_host_info($base) . PHP_EOL."</br>";
-  
   
   foreach(array("Service","salle","infirmier","patient") as $filename)
   {
@@ -119,7 +117,7 @@ function majTables()
       $req = mysqli_query($base,$sql)
         or die("|".$sql."|  "."Message d'erreur : ".mysqli_error($base)."  ");
         
-      echo($sql."<br/>");
+      //echo($sql."<br/>");
 
     }
     fclose($file);
@@ -133,7 +131,7 @@ function majTables()
     $req = mysqli_query($base,$sql)
       or die("|".$sql."|  "."Message d'erreur : ".mysqli_error($base)."  ");
         
-    echo($sql."<br/>");
+    //echo($sql."<br/>");
 
   }
   fclose($file);

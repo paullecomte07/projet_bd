@@ -74,12 +74,17 @@
 
   <div class="dropdown show">
     <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-    Dropdown link
+    Tables
     </a>
 
     <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-      <a class="dropdown-item" href="#">Action</a>
-      <a class="dropdown-item" href="#">Another action</a>
+      <a class="dropdown-item" href="Tables\acte.php">Acte</a>
+      <a class="dropdown-item" href="Tables\hospitalisation.php">Hospitalisation</a>
+      <a class="dropdown-item" href="Tables\infirmier.php">Infirmier</a>
+      <a class="dropdown-item" href="Tables\medecin.php">Medecin</a>
+      <a class="dropdown-item" href="Tables\patient.php">Patient</a>
+      <a class="dropdown-item" href="Tables\salle.php">Salle</a>
+      <a class="dropdown-item" href="Tables\service.php">Service</a>
 
     </div>
   </div>

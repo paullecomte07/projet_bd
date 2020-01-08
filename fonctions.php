@@ -5,13 +5,12 @@
     or mysqli_connect ('localhost', 'root', 'root')
       or die("Impossible de se connecter : " . mysqli_error());
   
-  $sql= "DROP DATABASE IF EXISTS bddplnvk";
-  $req = mysqli_query($base,$sql);
+  /*$sql= "DROP DATABASE IF EXISTS bddplnvk"; //mauvaise idée !!! une page web se raffraichit h24
+  $req = mysqli_query($base,$sql);*/
 
   $sql="CREATE DATABASE bddplnvk CHARACTER SET 'utf8';";
   $req = mysqli_query($base,$sql);
   mysqli_select_db ($base,'bddplnvk') ;
-
 
   /*mysqli_select_db ($base,'voitures') ;
   $sql = "SELECT voitures.* FROM voitures where Nom=\"".$voiture."\"";
@@ -35,7 +34,7 @@
     NumService INT(5) NOT NULL,
     Nblits Int(5) NOT NULL,
     NumInf INT(5) NOT NULL,
-    PRIMARY KEY (numSalle)
+    PRIMARY KEY (numSalle,numService)
   );';
   $instructionSQL3='CREATE TABLE Infirmier (
     NumInf INT(5) NOT NULL,
@@ -85,8 +84,6 @@
       or die("Message d'erreur : ".mysqli_error($base)."  ");
     
   }
-  $req = mysqli_query($base,"INSERT INTO service values('1','Cardiologie','A','6')")
-    or die("Message d'erreur : ".mysqli_error($base)."  ");
   return TRUE;
 }
 
@@ -94,34 +91,61 @@ function majTables()
 {
   global $base;
   echo "Information d'hôte : " . mysqli_get_host_info($base) . PHP_EOL."</br>";
-  echo "Information : " . mysql_list_dbs($base) . PHP_EOL."</br>";
   
   
-  /*foreach(array("Service","salle","infirmier","patient") as $filename)
+  foreach(array("Service","salle","infirmier","patient") as $filename)
   {
     $file = fopen("Enregistrements\\".$filename.".csv", "r");
     $titres=$emapData = fgetcsv($file, 10000, ";");
-
     while (($emapData = fgetcsv($file, 10000, ";")) !== FALSE)
     {
-      $sql = "INSERT INTO service values('$emapData[0]','$emapData[1]','$emapData[2]','$emapData[3]');";
+      $sql = "INSERT INTO $filename values('$emapData[0]','$emapData[1]','$emapData[2]','$emapData[3]');";
+      $req = mysqli_query($base,$sql)
+        or die("|".$sql."|  "."Message d'erreur : ".mysqli_error($base)."  ");
+        
+      //echo($sql."<br/>");
+
+    }
+    fclose($file);
+  }
+
+  foreach(array("Acte","Hospitalisation") as $filename)
+  {
+    $file = fopen("Enregistrements\\".$filename.".csv", "r");
+    $titres=$emapData = fgetcsv($file, 10000, ";");
+    while (($emapData = fgetcsv($file, 10000, ";")) !== FALSE)
+    {
+      $sql = "INSERT INTO $filename values('$emapData[0]','$emapData[1]','$emapData[2]','$emapData[3]','$emapData[4]');";
       $req = mysqli_query($base,$sql)
         or die("|".$sql."|  "."Message d'erreur : ".mysqli_error($base)."  ");
         
       echo($sql."<br/>");
 
-    } 
+    }
     fclose($file);
-  }*/
-  
+  }
+  $filename ="Medecin";
+  $file = fopen("Enregistrements\\".$filename.".csv", "r");
+  $titres=$emapData = fgetcsv($file, 10000, ";");
+  while (($emapData = fgetcsv($file, 10000, ";")) !== FALSE)
+  {
+    $sql = "INSERT INTO $filename values('$emapData[0]','$emapData[1]','$emapData[2]');";
+    $req = mysqli_query($base,$sql)
+      or die("|".$sql."|  "."Message d'erreur : ".mysqli_error($base)."  ");
+        
+    echo($sql."<br/>");
+
+  }
+  fclose($file);
+
 }
 
 function supprimerBDD () 
 {
   global $base;
+
   $sql= "DROP DATABASE IF EXISTS bddplnvk";
   $req = mysqli_query($base,$sql);
-  echo "fohqelirufhqzlejbfh";
   return TRUE;
 }
 

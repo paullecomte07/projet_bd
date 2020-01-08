@@ -19,6 +19,7 @@
   	// Importation et exécution du fichier
   	require('fonctions.php');
   ?>
+  
   <div class="conteneur"><h1>Projet bases de données</h1></div>
 
   <?php

@@ -1,8 +1,8 @@
 <?php
   // Définition des fonctions
-  $base = mysqli_connect ('localhost', 'root', '')
+  $base = mysqli_connect ('localhost','root', 'root')
     or die("Impossible de se connecter : " . mysqli_error());
-  
+
   $sql= "DROP DATABASE IF EXISTS bddplnvk";
   $req = mysqli_query($base,$sql);
 
@@ -16,7 +16,7 @@
   $req = mysqli_query($base,$sql)
     or die('Erreur SQL !<br />'.$sql.'<br />'.mysqli_error($base));*/
 
-  function creerTables () 
+  function creerTables ()
 {
   $instructionSQL1="CREATE TABLE Service(NumService INT(1) NOT NULL, Nom VARCHAR(50) NOT NULL, Batiment VARCHAR(1) NOT NULL, NumMed INT(2) NOT NULL);";
 
@@ -66,17 +66,17 @@
     //echo($sql);
     $req = mysqli_query($base,$sql)
       or die("Impossible de créer la table : ");
-    
+
   }
   return TRUE;
 }
 
-function ajouterElement () 
+function ajouterElement ()
 {
   global $base;
 }
 
-function supprimerBDD () 
+function supprimerBDD ()
 {
   global $base;
   $sql= "DROP DATABASE IF EXISTS bddplnvk";
@@ -84,5 +84,50 @@ function supprimerBDD ()
   return TRUE;
 }
 
+function import_csv()
+{
+   if(isset($_POST["Import"])){
+
+    $filename=$_FILES["file"]["tmp_name"];
+
+    echo($_FILES);
+     // if($_FILES["file"]["size"] > 0)
+     // {
+     //    $file = fopen($filename, "r");
+     //      while (($getData = fgetcsv($file, 10000, ",")) !== FALSE)
+     //       {
+        //      $sql = "INSERT into employeeinfo (emp_id,firstname,lastname,email,reg_date)
+        //            values ('".$getData[0]."','".$getData[1]."','".$getData[2]."','".$getData[3]."','".$getData[4]."')";
+        //            $result = mysqli_query($con, $sql);
+        // if(!isset($result))
+        // {
+        //   echo "<script type=\"text/javascript\">
+        //       alert(\"Invalid File:Please Upload CSV File.\");
+        //       window.location = \"index.php\"
+        //       </script>";
+        // }
+        // else {
+        //     echo "<script type=\"text/javascript\">
+        //     alert(\"CSV File has been successfully Imported.\");
+        //     window.location = \"index.php\"
+        //   </script>";
+        // }
+        //    }
+
+        //    fclose($file);
+//     }
+  }
+}
+
 
 ?>
+
+
+
+
+
+
+
+
+
+

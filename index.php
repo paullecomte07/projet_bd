@@ -38,16 +38,6 @@
             echo "les tables ont été supprimées";
           }
 
-          /*
-          $csvFile = file('Enregistrements/Patient.csv');
-          $data = [];
-          foreach ($csvFile as $line) {
-            echo($line);
-            echo("coucou");
-            $data[] = str_getcsv($line);
-          }
-          echo($data[2]);
-          */
         }
     ?>
 
@@ -61,9 +51,8 @@
 
   <div class="conteneur-button">
       <div class="row">
-          <form class="form-horizontal" action="functions.php" method="post" name="upload_excel" enctype="multipart/form-data">
+          <form class="form-horizontal" action="import_csv" method="post" name="upload_excel" enctype="multipart/form-data">
               <fieldset>
-
                   <div class="form-group">
                       <label class="col-md-4 control-label" for="filebutton">Ajouter des fichiers</label>
                       <div class="col-md-4">
@@ -72,7 +61,6 @@
                   </div>
                   <!-- Button -->
                   <div class="form-group">
-
                       <div class="col-md-4">
                           <button type="submit" id="submit" name="Import" class="btn btn-success button-loading" data-loading-text="Loading...">Importer</button>
                       </div>
@@ -99,6 +87,18 @@
   <div>
     <div class="requete"> s</div>
   </div>
+
+
+
+  <p class="lead">Remplissez à partir d'un fichier CSV ou manuellement.</p>
+                    <form action="remplir.php" method="post">
+                        <p class="lead"><button class="btn btn-info btn-block" name="csv" value="1">Remplir à l'aide d'un csv</button></p>
+                    </form>
+
+                    <form action="display.php" method="post">
+                    <p class="lead"><button class="btn btn-info btn-block" name="manuel" value="1">Remplir manuellement</button></p>
+                    </form>
+
 
 
   </body>

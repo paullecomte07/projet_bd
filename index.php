@@ -19,7 +19,7 @@
   	// Importation et exécution du fichier
   	require('fonctions.php');
   ?>
-  
+
   <div class="conteneur"><h1>Projet bases de données</h1></div>
 
   <?php
@@ -47,29 +47,6 @@
   </div>
 
 
-  <div class="conteneur-button">
-      <div class="row">
-          <form class="form-horizontal" action="functions.php" method="post" name="upload_excel" enctype="multipart/form-data">
-              <fieldset>
-
-                  <div class="form-group">
-                      <label class="col-md-4 control-label" for="filebutton">Ajouter des fichiers</label>
-                      <div class="col-md-4">
-                          <input type="file" name="file" id="file" class="input-large btn btn-primary">
-                      </div>
-                  </div>
-                  <!-- Button -->
-                  <div class="form-group">
-
-                      <div class="col-md-4">
-                          <button type="submit" id="submit" name="Import" class="btn btn-success button-loading" data-loading-text="Loading...">Importer</button>
-                      </div>
-                  </div>
-              </fieldset>
-          </form>
-      </div>
-
-  </div>
 
 
   <div class="dropdown show">

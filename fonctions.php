@@ -93,7 +93,7 @@ function majTables()
   
   foreach(array("Service","salle","infirmier","patient") as $filename)
   {
-    $file = fopen("Enregistrements\\".$filename.".csv", "r");
+    $file = fopen("Enregistrements/".$filename.".csv", "r");
     $titres=$emapData = fgetcsv($file, 10000, ";");
     while (($emapData = fgetcsv($file, 10000, ";")) !== FALSE)
     {
@@ -109,7 +109,7 @@ function majTables()
 
   foreach(array("Acte","Hospitalisation") as $filename)
   {
-    $file = fopen("Enregistrements\\".$filename.".csv", "r");
+    $file = fopen("Enregistrements/".$filename.".csv", "r");
     $titres=$emapData = fgetcsv($file, 10000, ";");
     while (($emapData = fgetcsv($file, 10000, ";")) !== FALSE)
     {
@@ -123,7 +123,7 @@ function majTables()
     fclose($file);
   }
   $filename ="Medecin";
-  $file = fopen("Enregistrements\\".$filename.".csv", "r");
+  $file = fopen("Enregistrements/".$filename.".csv", "r");
   $titres=$emapData = fgetcsv($file, 10000, ";");
   while (($emapData = fgetcsv($file, 10000, ";")) !== FALSE)
   {
@@ -147,5 +147,15 @@ function supprimerBDD ()
   return TRUE;
 }
 
+function nbLignesTable($table)
+{
+  global $base;
+  $sql = "SELECT COUNT(*) FROM ".$table;
+  $result = mysqli_query($base,$sql);
+  $req = mysqli_fetch_assoc($result);
+
+  mysqli_free_result($result);
+  return $req['COUNT(*)'];
+}
 
 ?>

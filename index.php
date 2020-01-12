@@ -47,7 +47,7 @@
   </div>
 
   <div class="conteneur-button">
-    <a class="btn btn-warning" href="requetes.php">Aller essayer les requêtes SQL</a>
+    <a class="btn btn-warning" href="requetes.php">Requêtes SQL</a>
   </div>
 
 

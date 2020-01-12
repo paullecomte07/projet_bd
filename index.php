@@ -19,8 +19,8 @@
   	// Importation et exécution du fichier
   	require('fonctions.php');
   ?>
-  
-  <div class="conteneur"><h1>Projet bases de données</h1></div>
+
+  <div class="conteneur mt-4"><h1>Projet bases de données</h1></div>
 
   <?php
         if(array_key_exists('button1', $_POST)) {
@@ -40,39 +40,20 @@
 
   <div class="conteneur-button">
     <form method="post">
-        <input type="submit" name="button1" class="btn btn-primary m-1" value="Créer une nouvelle base" />
+        <input type="submit" name="button1" class="btn btn-primary m-2" value="Créer une nouvelle base" />
         <input type="submit" name="button2" class="btn btn-primary m-2" value="Charger les enregistrements" />
-        <input type="submit" name="button3" class="btn btn-danger m-3" value="Effacer la base de donnée" />
+        <input type="submit" name="button3" class="btn btn-danger m-2" value="Effacer la base de donnée" />
     </form>
   </div>
 
-
   <div class="conteneur-button">
-      <div class="row">
-          <form class="form-horizontal" action="functions.php" method="post" name="upload_excel" enctype="multipart/form-data">
-              <fieldset>
-
-                  <div class="form-group">
-                      <label class="col-md-4 control-label" for="filebutton">Ajouter des fichiers</label>
-                      <div class="col-md-4">
-                          <input type="file" name="file" id="file" class="input-large btn btn-primary">
-                      </div>
-                  </div>
-                  <!-- Button -->
-                  <div class="form-group">
-
-                      <div class="col-md-4">
-                          <button type="submit" id="submit" name="Import" class="btn btn-success button-loading" data-loading-text="Loading...">Importer</button>
-                      </div>
-                  </div>
-              </fieldset>
-          </form>
-      </div>
-
+    <a class="btn btn-warning" href="requetes.php">Aller essayer les requêtes SQL</a>
   </div>
 
 
-  <div class="dropdown show">
+
+
+  <div class="dropdown show m-3" style="text-align: center;">
     <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
     Tables
     </a>
@@ -89,9 +70,7 @@
     </div>
   </div>
 
-  <div>
-    <div class="requete"> s</div>
-  </div>
+
 
 
   </body>

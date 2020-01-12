@@ -32,13 +32,25 @@
           ini_set('auto_detect_line_endings',TRUE);
             header('Content-Type: text/html; charset=UTF-8');
   // Définition des fonctions
-          $base = mysqli_connect ('localhost', 'root', 'root')
-            or mysqli_connect ('localhost', 'root', 'root')
+          $base = mysqli_connect ('localhost', 'root', '')
               or die("Impossible de se connecter : " . mysqli_error());
 
           mysqli_select_db($base,'bddplnvk') ;
 
-        $requetes = array('SELECT m.nom FROM Medecin m JOIN Service s ON m.NumMed = s.NumMed WHERE s.Nom="cancerologie"','SELECT SUM(Nblits),sa.NumServ FROM Salle sa GROUP BY  sa.NumServ', 'SELECT sal.Nblits-ho.NbLitOccupe as NbLitsRestant, sal.NumSalle FROM (SELECT sa.Nblits, s.Nom, sa.NumSalle FROM Salle sa JOIN Service s ON s.NumService=sa.NumServ WHERE s.Nom="Cardiologie") as sal JOIN (SELECT COUNT(h.NumSalle) as NbLitOccupe,h.NumSalle FROM Hospitalisation h JOIN Service s ON s.NumService= h.NumService WHERE h.DateSortie >= "2018-07-04" AND h.DateEntree <= "2018-07-04" AND s.Nom= "Cardiologie"GROUP BY h.NumSalle) AS ho ON ho.NumSalle=sal.NumSalle','SELECT * FROM Patient p WHERE NumPat NOT IN (SELECT NumPat FROM Acte a JOIN Service s ON s.NumService=a.NumService WHERE s.Nom = "Cardiologie")','SELECT DISTINCT NumPat FROM (SELECT DISTINCT NumPat FROM (SELECT DISTINCT NumPat FROM (SELECT DISTINCT NumPat FROM (SELECT DISTINCT NumPat FROM (SELECT DISTINCT NumPat FROM Acte a WHERE a.NumPat IN (SELECT NumPat FROM Acte a JOIN Service s ON a.NumService=s.NumService WHERE s.Nom="Cardiologie")) a WHERE a.NumPat IN (SELECT NumPat FROM Acte a JOIN Service s ON a.NumService=s.NumService WHERE s.Nom="Chirurgie")) a WHERE a.NumPat IN (SELECT NumPat FROM Acte a JOIN Service s ON a.NumService=s.NumService WHERE s.Nom="Imagerie")) a WHERE a.NumPat IN (SELECT NumPat FROM Acte a JOIN Service s ON a.NumService=s.NumService WHERE s.Nom="cancerologie")) a WHERE a.NumPat IN (SELECT NumPat FROM Acte a JOIN Service s ON a.NumService=s.NumService WHERE s.Nom="dentaire")) a WHERE a.NumPat IN (SELECT NumPat FROM Acte a JOIN Service s ON a.NumService=s.NumService WHERE s.Nom="Griatrie")','SELECT m.Nom AS NomMedecin , m.Specialite AS SpecialiteMedecin, p.Nom AS NomPatient FROM Medecin m JOIN Acte a On m.NumMed=a.NumMed JOIN Patient p ON p.NumPat=a.NumPat WHERE a.NumPat IN (SELECT DISTINCT NumPat FROM (SELECT DISTINCT NumPat FROM (SELECT DISTINCT NumPat FROM (SELECT DISTINCT NumPat FROM (SELECT DISTINCT NumPat FROM (SELECT DISTINCT NumPat FROM Acte a WHERE a.NumPat IN (SELECT NumPat FROM Acte a JOIN Service s ON a.NumService=s.NumService WHERE s.Nom="Cardiologie")) a WHERE a.NumPat IN (SELECT NumPat FROM Acte a JOIN Service s ON a.NumService=s.NumService WHERE s.Nom="Chirurgie")) a WHERE a.NumPat IN (SELECT NumPat FROM Acte a JOIN Service s ON a.NumService=s.NumService WHERE s.Nom="Imagerie")) a WHERE a.NumPat IN (SELECT NumPat FROM Acte a JOIN Service s ON a.NumService=s.NumService WHERE s.Nom="cancerologie")) a WHERE a.NumPat IN (SELECT NumPat FROM Acte a JOIN Service s ON a.NumService=s.NumService WHERE s.Nom="dentaire")) a WHERE a.NumPat IN (SELECT NumPat FROM Acte a JOIN Service s ON a.NumService=s.NumService WHERE s.Nom="Griatrie"))','SELECT * FROM Patient p WHERE p.NumPat IN (SELECT B.NumPat FROM (SELECT h.NumPat FROM Hospitalisation h WHERE h.DateSortie-h.DateEntree>=14) AS B WHERE B.NumPat NOT IN (SELECT h.NumPat FROM Hospitalisation h WHERE h.DateSortie-h.DateEntree<=14))','SELECT NumPat FROM Acte WHERE NumPat NOT IN (SELECT NumPat FROM Hospitalisation)','SELECT NumService FROM Service WHERE NumService NOT IN(SELECT NumService FROM Hospitalisation)','SELECT s.Nom AS NomService, p.Nom AS NomPatient FROM Acte a JOIN Service s ON s.NumService=a.NumService JOIN Patient p ON p.NumPat = a.NumPat WHERE a.numPat IN (SELECT a.NumPat FROM Acte a GROUP BY NumPat HAVING COUNT(a.NumService)= "1")','SELECT Nom FROM Service WHERE numService IN (SELECT H.numService FROM (SELECT COUNT(NumService), NumService FROM Acte GROUP BY NumService) AS A JOIN (SELECT COUNT(Z.NumService) AS nombre, Z.NumService FROM (SELECT * FROM Hospitalisation WHERE DateSortie-DateEntree>1) as Z GROUP BY Z.NumService) AS H ON H.NumService=A.NumService WHERE `COUNT(NumService)`/2 < `H`.`nombre`)','SELECT p.Nom,p.Mutuelle FROM Patient p JOIN (SELECT h.NumPat FROM Hospitalisation h WHERE h.DateSortie-h.DateEntree >=3) as h ON h.NumPat=p.NumPat WHERE p.Mutuelle!="MUT"','SELECT AVG(NbDisctinctPatient) FROM (SELECT COUNT(R.NumMed) as NbDisctinctPatient,R.NumMed FROM (SELECT DISTINCT NumPat,NumMed FROM Acte) AS R GROUP BY R.NumMed) as L','SELECT AVG(NbAct) FROM (SELECT COUNT(a.DateAct) AS NbAct FROM Acte a GROUP BY a.DateAct) as G');
+        $requetes = array('SELECT m.nom FROM Medecin m JOIN Service s ON m.NumMed = s.NumMed WHERE s.Nom="cancerologie"' ,
+                          'SELECT SUM(Nblits),sa.NumServ FROM Salle sa GROUP BY  sa.NumServ',
+                          'SELECT sal.Nblits-ho.NbLitOccupe as NbLitsRestant, sal.NumSalle FROM (SELECT sa.Nblits, s.Nom, sa.NumSalle FROM Salle sa JOIN Service s ON s.NumService=sa.NumServ WHERE s.Nom="Cardiologie") as sal JOIN (SELECT COUNT(h.NumSalle) as NbLitOccupe,h.NumSalle FROM Hospitalisation h JOIN Service s ON s.NumService= h.NumService WHERE h.DateSortie >= "2018-07-04" AND h.DateEntree <= "2018-07-04" AND s.Nom= "Cardiologie"GROUP BY h.NumSalle) AS ho ON ho.NumSalle=sal.NumSalle',
+                          'SELECT * FROM Patient p WHERE NumPat NOT IN (SELECT NumPat FROM Acte a JOIN Service s ON s.NumService=a.NumService WHERE s.Nom = "Cardiologie")',
+                          'SELECT DISTINCT NumPat FROM (SELECT DISTINCT NumPat FROM (SELECT DISTINCT NumPat FROM (SELECT DISTINCT NumPat FROM (SELECT DISTINCT NumPat FROM (SELECT DISTINCT NumPat FROM Acte a WHERE a.NumPat IN (SELECT NumPat FROM Acte a JOIN Service s ON a.NumService=s.NumService WHERE s.Nom="Cardiologie")) a WHERE a.NumPat IN (SELECT NumPat FROM Acte a JOIN Service s ON a.NumService=s.NumService WHERE s.Nom="Chirurgie")) a WHERE a.NumPat IN (SELECT NumPat FROM Acte a JOIN Service s ON a.NumService=s.NumService WHERE s.Nom="Imagerie")) a WHERE a.NumPat IN (SELECT NumPat FROM Acte a JOIN Service s ON a.NumService=s.NumService WHERE s.Nom="cancerologie")) a WHERE a.NumPat IN (SELECT NumPat FROM Acte a JOIN Service s ON a.NumService=s.NumService WHERE s.Nom="dentaire")) a WHERE a.NumPat IN (SELECT NumPat FROM Acte a JOIN Service s ON a.NumService=s.NumService WHERE s.Nom="Griatrie")',
+                          'SELECT m.Nom AS NomMedecin , m.Specialite AS SpecialiteMedecin, p.Nom AS NomPatient FROM Medecin m JOIN Acte a On m.NumMed=a.NumMed JOIN Patient p ON p.NumPat=a.NumPat WHERE a.NumPat IN (SELECT DISTINCT NumPat FROM (SELECT DISTINCT NumPat FROM (SELECT DISTINCT NumPat FROM (SELECT DISTINCT NumPat FROM (SELECT DISTINCT NumPat FROM (SELECT DISTINCT NumPat FROM Acte a WHERE a.NumPat IN (SELECT NumPat FROM Acte a JOIN Service s ON a.NumService=s.NumService WHERE s.Nom="Cardiologie")) a WHERE a.NumPat IN (SELECT NumPat FROM Acte a JOIN Service s ON a.NumService=s.NumService WHERE s.Nom="Chirurgie")) a WHERE a.NumPat IN (SELECT NumPat FROM Acte a JOIN Service s ON a.NumService=s.NumService WHERE s.Nom="Imagerie")) a WHERE a.NumPat IN (SELECT NumPat FROM Acte a JOIN Service s ON a.NumService=s.NumService WHERE s.Nom="cancerologie")) a WHERE a.NumPat IN (SELECT NumPat FROM Acte a JOIN Service s ON a.NumService=s.NumService WHERE s.Nom="dentaire")) a WHERE a.NumPat IN (SELECT NumPat FROM Acte a JOIN Service s ON a.NumService=s.NumService WHERE s.Nom="Griatrie"))',
+                          'SELECT * FROM Patient p WHERE p.NumPat IN (SELECT B.NumPat FROM (SELECT h.NumPat FROM Hospitalisation h WHERE h.DateSortie-h.DateEntree>=14) AS B WHERE B.NumPat NOT IN (SELECT h.NumPat FROM Hospitalisation h WHERE h.DateSortie-h.DateEntree<=14))',
+                          'SELECT NumPat FROM Acte WHERE NumPat NOT IN (SELECT NumPat FROM Hospitalisation)',
+                          'SELECT NumService FROM Service WHERE NumService NOT IN(SELECT NumService FROM Hospitalisation)',
+                          'SELECT s.Nom AS NomService, p.Nom AS NomPatient FROM Acte a JOIN Service s ON s.NumService=a.NumService JOIN Patient p ON p.NumPat = a.NumPat WHERE a.numPat IN (SELECT a.NumPat FROM Acte a GROUP BY NumPat HAVING COUNT(a.NumService)= "1")',
+                          'SELECT Nom FROM Service WHERE numService IN (SELECT H.numService FROM (SELECT COUNT(NumService), NumService FROM Acte GROUP BY NumService) AS A JOIN (SELECT COUNT(Z.NumService) AS nombre, Z.NumService FROM (SELECT * FROM Hospitalisation WHERE DateSortie-DateEntree>1) as Z GROUP BY Z.NumService) AS H ON H.NumService=A.NumService WHERE `COUNT(NumService)`/2 < `H`.`nombre`)',
+                          'SELECT p.Nom,p.Mutuelle FROM Patient p JOIN (SELECT h.NumPat FROM Hospitalisation h WHERE h.DateSortie-h.DateEntree >=3) as h ON h.NumPat=p.NumPat WHERE p.Mutuelle!="MUT"',
+                          'SELECT AVG(NbDisctinctPatient) FROM (SELECT COUNT(R.NumMed) as NbDisctinctPatient,R.NumMed FROM (SELECT DISTINCT NumPat,NumMed FROM Acte) AS R GROUP BY R.NumMed) as L ',
+                          'SELECT AVG(NbAct) FROM (SELECT COUNT(a.DateAct) AS NbAct FROM Acte a GROUP BY a.DateAct) as G ');
         $texte = array(
             '2. Quels sont les cancérologues qui sont chefs de service ?',
             '3. Quel est le nombre de lits dans chaque service ?',
@@ -95,13 +107,18 @@ ayant subit un acte par le médecin) ?',
         if(isset($_GET['request'])){
             $req = mysqli_query($base,$requetes[$_GET['request']-2])
                   or die("Message d'erreur : ".mysqli_error($base)."  ");
+        
 
 if (array_key_exists('date-btn',$_POST)){
           $val=$_POST['date'];
-          $requ= 'SELECT * FROM Patient p WHERE p.NumPat IN (SELECT h.NumPat FROM Hospitalisation h WHERE h.DateEntree='.$val.')';
+          $requ= 'SELECT *
+          From Patient p join Hospitalisation h on p.NumPat = h.NumPat
+          WHERE h.DateEntree = "'.$val.'";
+          ';
+          echo $requ;
           $reque = mysqli_query($base,$requ)
                   or die("Message d'erreur : ".mysqli_error($base)."  ");
-          echo 'sol'.$reque;
+
           echo '<div style=" margin: auto; ">';
           echo '<h4>Réponse à la question 1</h4>';
           echo('<table class="table table-hover" style="position: sticky;">
@@ -160,7 +177,7 @@ if (array_key_exists('date-btn',$_POST)){
     </div>
 
 
-        <?php  }$conn->close(); ?>
+        <?php  }$base->close(); ?>
     </div><!--/row-->
 
 

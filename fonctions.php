@@ -2,8 +2,7 @@
   ini_set('auto_detect_line_endings',TRUE);
   header('Content-Type: text/html; charset=UTF-8');
   // Définition des fonctions
-  $base = mysqli_connect ('localhost', 'root', 'root')
-    or mysqli_connect ('localhost', 'root', 'root')
+  $base = mysqli_connect ('localhost', 'root', '')
       or die("Impossible de se connecter : " . mysqli_error());
 
   /*$sql= "DROP DATABASE IF EXISTS bddplnvk"; //mauvaise idée !!! une page web se raffraichit h24

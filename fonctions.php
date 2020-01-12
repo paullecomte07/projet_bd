@@ -151,5 +151,15 @@ function supprimerBDD ()
   return TRUE;
 }
 
+function nbLignesTable($table)
+{
+  global $base;
+  $sql = "SELECT COUNT(*) FROM ".$table;
+  $result = mysqli_query($base,$sql);
+  $req = mysqli_fetch_assoc($result);
+
+  mysqli_free_result($result);
+  return $req['COUNT(*)'];
+}
 
 ?>

@@ -36,7 +36,7 @@
             echo "les tables ont été supprimées";
           }
         }
-    ?>
+  ?>
 
   <div class="conteneur-button">
     <form method="post">

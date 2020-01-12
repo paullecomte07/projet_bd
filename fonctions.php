@@ -59,16 +59,16 @@
   );';
   $instructionSQL6='CREATE TABLE Hospitalisation(
     NumPat INT(5) NOT NULL,
-    DateEntree VARCHAR(10) NOT NULL,
+    DateEntree DATE NOT NULL,
     NumSalle INT(5) NOT NULL,
     NumService INT(5) NOT NULL,
-    DateSortie VARCHAR(10) NOT NULL,
+    DateSortie DATE NOT NULL,
     PRIMARY KEY (NumPat, DateEntree, NumSalle)
   );';
   $instructionSQL7='CREATE TABLE Acte(
     NumMed INT(5) NOT NULL,
     NumPat INT(5) NOT NULL,
-    DateAct VARCHAR(10) NOT NULL,
+    DateAct DATE NOT NULL,
     NumService INT(5) NOT NULL,
     Description VARCHAR(50) NOT NULL,
     PRIMARY KEY (NumMed, NumPat, DateAct)

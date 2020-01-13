@@ -50,7 +50,13 @@
                           'SELECT Nom FROM Service WHERE numService IN (SELECT H.numService FROM (SELECT COUNT(NumService), NumService FROM Acte GROUP BY NumService) AS A JOIN (SELECT COUNT(Z.NumService) AS nombre, Z.NumService FROM (SELECT * FROM Hospitalisation WHERE DateSortie-DateEntree>1) as Z GROUP BY Z.NumService) AS H ON H.NumService=A.NumService WHERE `COUNT(NumService)`/2 < `H`.`nombre`)',
                           'SELECT p.Nom,p.Mutuelle FROM Patient p JOIN (SELECT h.NumPat FROM Hospitalisation h WHERE h.DateSortie-h.DateEntree >=3) as h ON h.NumPat=p.NumPat WHERE p.Mutuelle!="MUT"',
                           'SELECT AVG(NbDisctinctPatient) FROM (SELECT COUNT(R.NumMed) as NbDisctinctPatient,R.NumMed FROM (SELECT DISTINCT NumPat,NumMed FROM Acte) AS R GROUP BY R.NumMed) as L ',
-                          'SELECT AVG(NbAct) FROM (SELECT COUNT(a.DateAct) AS NbAct FROM Acte a GROUP BY a.DateAct) as G ');
+                          'SELECT AVG(NbAct) FROM (SELECT COUNT(a.DateAct) AS NbAct FROM Acte a GROUP BY a.DateAct) as G ',
+                          'SELECT SUM(sa.NbLits) as NbLits,s.Nom as NomService FROM Salle sa JOIN Service s ON s.NumService=sa.NumServ GROUP BY NomService',
+                          'SELECT m.nom, m.Specialite FROM Medecin m JOIN Service s ON m.NumMed=s.NumMed WHERE s.Nom ="dentaire"',
+                          'SELECT p.Nom, p.Prenom FROM Patient p JOIN Hospitalisation h ON h.NumPat=p.NumPat JOIN Service s ON s.NumService = h.NumService WHERE s.Nom="Chirurgie"',
+                          'SELECT count(NumInf) + (SELECT count(NumMed) From Medecin) FROM Infirmier'
+                        
+                        );
         $texte = array(
             '2. Quels sont les cancérologues qui sont chefs de service ?',
             '3. Quel est le nombre de lits dans chaque service ?',
@@ -71,7 +77,14 @@ que dans un seul service ?',
 à la mutelle MUT.',
             '14. Quel est le nombre moyen de patients (différents) par médecin (patient
 ayant subit un acte par le médecin) ?',
-            '15. Quelle est la moyenne des actes par jour pour l’ensemble des medecins.');
+            '15. Quelle est la moyenne des actes par jour pour l’ensemble des medecins ?',
+            'Bonus 1. Quel est le nombre de lits par service ?',
+            'Bonus 2. Quel est le nom et la spécialtité du médecin du service dentaire ?',
+            'Bonus 3. Quel est le nom et le prénom des patients qui ont été hospitalisés dans le service chirurgie ?',
+            'Bonus 4. Combien de personnes sont employés par l\'hospital ?'
+          
+          
+          );
 
 ?>
 
@@ -115,7 +128,7 @@ if (array_key_exists('date-btn',$_POST)){
           From Patient p join Hospitalisation h on p.NumPat = h.NumPat
           WHERE h.DateEntree = "'.$val.'";
           ';
-          echo $requ;
+          //echo $requ;
           $reque = mysqli_query($base,$requ)
                   or die("Message d'erreur : ".mysqli_error($base)."  ");
 

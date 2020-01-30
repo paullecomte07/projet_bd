@@ -1,4 +1,4 @@
-This is php data base project made in one week in pairs.
+This is php data base project made in one week in pairs. The main goal was to work on a SQL database
 
 
 

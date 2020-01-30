@@ -1,3 +1,7 @@
+This is php data base project made in one week in pairs.
+
+
+
 La connection à la database se fait par l'intermédiare de la commande :
       $base = mysqli_connect ('localhost', 'root', '')
     présente en haut du fichier fonctions.php et requetes.php.
